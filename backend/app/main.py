@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from app.nlp.extractor import extract_entities
 from app.risk.classifier import classify_risk
 from app.geo.geocode import geocode_locations, to_geojson
+from app.analytics.scoring import compute_risk_score, city_summary
+from app.analytics.clustering import cluster_points
+from app.utils import convert_numpy_to_python
 
 app = FastAPI(
     title="PuviIntel",
@@ -9,29 +12,41 @@ app = FastAPI(
     version="0.2.0"
 )
 
+#Check Endpoint
 @app.get("/")
-def health_check():
+def check():
     return {"message": "FastAPI Running"}
 
+#NLP Entity Extraction Endpoint
 @app.post("/nlp/extract")
-def extract(payload: dict):
-    text = payload.get("text", "")
+def extract(data: dict):
+    text = data.get("text", "")
     return extract_entities(text)
 
+#Analysis Endpoint
 @app.post("/analyze")
-def analyze(payload: dict):
-    text = payload.get("text", "")
+def analyze(data: dict):
+    text = data.get("text", "")
 
     entities = extract_entities(text)
     risk = classify_risk(text)
 
-    # geocode locations
     geo_points = geocode_locations(entities["locations"])
     geojson = to_geojson(geo_points)
 
-    return {
+    score = compute_risk_score(risk["risks"], risk["confidence"])
+
+    clusters = cluster_points(geo_points)
+    summary = city_summary(geo_points, score)
+
+    response = {
         "entities": entities,
         "risk_analysis": risk,
+        "risk_index": score,
         "geo": geo_points,
-        "geojson": geojson
+        "geojson": geojson,
+        "clusters": clusters,
+        "city_summary": summary
     }
+    
+    return convert_numpy_to_python(response)

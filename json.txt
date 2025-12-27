@@ -1,0 +1,96 @@
+{
+    "entities": {
+        "locations": [
+            "Bengaluru",
+            "Katpadi"
+        ],
+        "organizations": [],
+        "entities": [
+            {
+                "text": "Katpadi",
+                "label": "GPE"
+            },
+            {
+                "text": "Bengaluru",
+                "label": "GPE"
+            }
+        ]
+    },
+    "risk_analysis": {
+        "risks": [
+            "flood",
+            "infrastructure"
+        ],
+        "confidence": 0.8
+    },
+    "risk_index": 60.0,
+    "geo": [
+        {
+            "name": "Bengaluru",
+            "lat": 12.9767936,
+            "lon": 77.590082
+        },
+        {
+            "name": "Katpadi",
+            "lat": 13.0435051,
+            "lon": 79.2404096
+        }
+    ],
+    "geojson": {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {
+                    "name": "Bengaluru"
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        77.590082,
+                        12.9767936
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "name": "Katpadi"
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        79.2404096,
+                        13.0435051
+                    ]
+                }
+            }
+        ]
+    },
+    "clusters": {
+        "0": [
+            {
+                "name": "Bengaluru",
+                "lat": 12.9767936,
+                "lon": 77.590082
+            }
+        ],
+        "1": [
+            {
+                "name": "Katpadi",
+                "lat": 13.0435051,
+                "lon": 79.2404096
+            }
+        ]
+    },
+    "city_summary": {
+        "Bengaluru": {
+            "events": 1,
+            "risk_score": 60.0
+        },
+        "Katpadi": {
+            "events": 1,
+            "risk_score": 60.0
+        }
+    }
+}
