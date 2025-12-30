@@ -5,6 +5,7 @@ from app.geo.geocode import geocode_locations, to_geojson
 from app.analytics.scoring import compute_risk_score, city_summary
 from app.analytics.clustering import cluster_points
 from app.utils import convert_numpy_to_python
+from app.utils import clean_geocoded_data as clean_geo_points
 
 app = FastAPI(
     title="PuviIntel",
@@ -32,7 +33,8 @@ def analyze(data: dict):
     risk = classify_risk(text)
 
     geo_points = geocode_locations(entities["locations"])
-    geojson = to_geojson(geo_points)
+    cleaned_geo = clean_geo_points(geo_points)
+    geojson = to_geojson(cleaned_geo)
 
     score = compute_risk_score(risk["risks"], risk["confidence"])
 
