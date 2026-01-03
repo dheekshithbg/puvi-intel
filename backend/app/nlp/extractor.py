@@ -1,8 +1,17 @@
 import spacy
 
-nlp = spacy.load("en_core_web_lg")
+# Lazy load model to reduce memory usage
+_nlp = None
+
+def get_nlp():
+    global _nlp
+    if _nlp is None:
+        # Use small model (13MB) instead of large (750MB+)
+        _nlp = spacy.load("en_core_web_sm")
+    return _nlp
 
 def extract_entities(text: str) -> dict:
+    nlp = get_nlp()
     doc = nlp(text)
 
     locations = set()
