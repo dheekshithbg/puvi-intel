@@ -106,7 +106,7 @@ def parse_story_output(llm_output):
         }
 
 
-def generate_story(entities, risk, geo, clusters, summary):
+def generate_story(entities, risk, geo, clusters, summary, llm_token: str = None):
     # Compute spatial insights
     distances = []
     for i in range(len(geo)):
@@ -254,6 +254,6 @@ Example:
 ...
 """
 
-    llm_output = call_llm(prompt)
+    llm_output = call_llm(prompt, token=llm_token)
 
     return parse_story_output(llm_output)

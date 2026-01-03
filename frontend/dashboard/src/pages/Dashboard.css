@@ -2,7 +2,22 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f7fafc;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1d35 50%, #0a0e27 100%);
+  position: relative;
+}
+
+.dashboard-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(0, 217, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .dashboard-content {
@@ -11,6 +26,8 @@
   margin: 0 auto;
   padding: 2rem;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .dashboard-header {
@@ -24,8 +41,11 @@
 
 .dashboard-header h2 {
   font-size: 2rem;
-  color: #2d3748;
+  color: #00d9ff;
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
 }
 
 .risk-badge {
@@ -34,33 +54,64 @@
   color: white;
   font-weight: 600;
   font-size: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px currentColor;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .dashboard-card {
-  background: white;
+  background: rgba(15, 23, 42, 0.7);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 217, 255, 0.05),
+    transparent
+  );
+  transition: left 0.6s ease;
 }
 
 .dashboard-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 25px rgba(0, 217, 255, 0.4);
+  border-color: #00d9ff;
+}
+
+.dashboard-card:hover::before {
+  left: 100%;
 }
 
 .dashboard-card h3 {
   font-size: 1.4rem;
-  color: #2d3748;
+  color: #00d9ff;
   margin: 0 0 1rem 0;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(0, 217, 255, 0.5);
 }
 
 .section-content {
-  color: #4a5568;
+  color: #8bb4c7;
   line-height: 1.8;
   font-size: 1rem;
 }
@@ -73,16 +124,21 @@
 }
 
 .location-tag {
-  background: #667eea;
-  color: white;
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.2) 0%, rgba(0, 255, 255, 0.2) 100%);
+  color: #00d9ff;
   padding: 0.4rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
+  border: 1px solid rgba(0, 217, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .risk-card {
-  border-left: 4px solid #f59e0b;
+  border-left: 4px solid #00d9ff;
+  box-shadow: -5px 0 15px rgba(0, 217, 255, 0.2);
 }
 
 .risk-details {
@@ -99,7 +155,7 @@
 
 .label {
   font-weight: 600;
-  color: #2d3748;
+  color: #00d9ff;
 }
 
 .severity-badge {
@@ -108,10 +164,12 @@
   color: white;
   font-weight: 600;
   font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px currentColor;
 }
 
 .risk-explanation {
-  color: #4a5568;
+  color: #8bb4c7;
   line-height: 1.6;
   margin: 0;
 }
@@ -128,12 +186,14 @@
 }
 
 .factor-tag {
-  background: #fed7d7;
-  color: #c53030;
+  background: rgba(255, 85, 85, 0.1);
+  color: #ff5555;
   padding: 0.3rem 0.8rem;
   border-radius: 12px;
   font-size: 0.85rem;
   font-weight: 500;
+  border: 1px solid rgba(255, 85, 85, 0.5);
+  box-shadow: 0 0 8px rgba(255, 85, 85, 0.3);
 }
 
 .insights-list {
@@ -145,10 +205,11 @@
 .insights-list li {
   padding: 0.75rem;
   margin-bottom: 0.5rem;
-  background: #f7fafc;
+  background: rgba(0, 217, 255, 0.05);
   border-radius: 8px;
-  color: #4a5568;
-  border-left: 3px solid #667eea;
+  color: #8bb4c7;
+  border-left: 3px solid #00d9ff;
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.1);
 }
 
 .insights-list li::before {
@@ -157,7 +218,8 @@
 }
 
 .impact-zones-card {
-  border-left: 4px solid #f59e0b;
+  border-left: 4px solid #ffa500;
+  box-shadow: -5px 0 15px rgba(255, 165, 0, 0.2);
 }
 
 .impact-zones {
@@ -166,26 +228,30 @@
 }
 
 .impact-zone {
-  background: #fffbeb;
-  border: 1px solid #fcd34d;
+  background: rgba(255, 165, 0, 0.05);
+  border: 1px solid rgba(255, 165, 0, 0.5);
   border-radius: 8px;
   padding: 1rem;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
 }
 
 .impact-zone h4 {
-  color: #92400e;
+  color: #ffa500;
   margin: 0 0 0.5rem 0;
   font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .impact-zone p {
-  color: #78350f;
+  color: #8bb4c7;
   margin: 0;
   line-height: 1.5;
 }
 
 .actions-card {
-  border-left: 4px solid #10b981;
+  border-left: 4px solid #00ff88;
+  box-shadow: -5px 0 15px rgba(0, 255, 136, 0.2);
 }
 
 .actions-list {
@@ -199,14 +265,15 @@
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem;
-  background: #f0fdf4;
+  background: rgba(0, 255, 136, 0.05);
   border-radius: 8px;
-  border: 1px solid #86efac;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.1);
 }
 
 .action-number {
-  background: #10b981;
-  color: white;
+  background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+  color: #0a0e27;
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -216,17 +283,19 @@
   font-weight: 600;
   font-size: 0.9rem;
   flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
 .action-text {
-  color: #065f46;
+  color: #8bb4c7;
   line-height: 1.6;
   flex: 1;
 }
 
 .data-card {
-  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-  border: 1px solid #e2e8f0;
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(0, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
 }
 
 .metadata-grid {
@@ -239,18 +308,25 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(0, 217, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 217, 255, 0.2);
 }
 
 .meta-label {
-  color: #718096;
+  color: #8bb4c7;
   font-size: 0.9rem;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .meta-value {
-  color: #2d3748;
+  color: #00d9ff;
   font-size: 1.5rem;
   font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
 }
 
 @media (max-width: 768px) {

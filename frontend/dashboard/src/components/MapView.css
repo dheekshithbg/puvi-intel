@@ -3,23 +3,30 @@
   height: 500px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 
+    0 0 20px rgba(0, 217, 255, 0.3),
+    inset 0 0 20px rgba(0, 217, 255, 0.1);
   margin: 1rem 0;
+  border: 2px solid rgba(0, 217, 255, 0.4);
 }
 
 .popup-content h3 {
   margin: 0 0 0.5rem 0;
-  color: #667eea;
+  color: #00d9ff;
   font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .popup-content p {
   margin: 0.25rem 0;
   font-size: 0.9rem;
+  color: #1a1d35;
 }
 
 .popup-content strong {
   font-weight: 600;
+  color: #0a0e27;
 }
 
 .custom-marker {
@@ -30,6 +37,9 @@
 /* Leaflet overrides */
 .leaflet-popup-content-wrapper {
   border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 217, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
 }
 
 .leaflet-popup-content {

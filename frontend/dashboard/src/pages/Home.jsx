@@ -7,6 +7,7 @@ import './Home.css';
 
 const Home = () => {
   const [text, setText] = useState('');
+  const [llmToken, setLlmToken] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -19,12 +20,18 @@ const Home = () => {
       return;
     }
 
+    if (!llmToken.trim()) {
+      setError('Please enter your LLM Foundry Token');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
     try {
       const response = await axios.post('http://localhost:8000/analyze', {
-        text: text
+        text: text,
+        llm_token: llmToken
       });
 
       // Navigate to dashboard with data
@@ -62,7 +69,21 @@ const Home = () => {
 
         <div className="input-section">
           <form onSubmit={handleSubmit}>
-            <label htmlFor="text-input" className="input-label">
+            <label htmlFor="token-input" className="input-label">
+              LLM Foundry Token:
+            </label>
+            
+            <input
+              id="token-input"
+              type="password"
+              className="token-input"
+              value={llmToken}
+              onChange={(e) => setLlmToken(e.target.value)}
+              placeholder="Enter your LLM Foundry Token"
+              disabled={loading}
+            />
+
+            <label htmlFor="text-input" className="input-label" style={{marginTop: '1.5rem'}}>
               Paste your news article or report below:
             </label>
             

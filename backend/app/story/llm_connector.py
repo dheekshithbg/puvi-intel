@@ -8,19 +8,24 @@ PROJECT_ID = "puviintel"
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ENV_PATH = os.path.join(ROOT_DIR, ".env")
 load_dotenv(ENV_PATH)
-TOKEN = os.getenv("LLMFOUNDRY_TOKEN")
 
 
-def call_llm(prompt: str):
+def call_llm(prompt: str, token: str = None):
     """
     Calls LLM Foundry (llama-3.3-70b-versatile) and returns the output text.
+    
+    Args:
+        prompt: The prompt to send to the LLM
+        token: The LLM Foundry token (overrides env variable if provided)
     """
+    # Use provided token or fallback to env variable
+    llm_token = token or os.getenv("LLMFOUNDRY_TOKEN")
 
-    if not TOKEN:
-        return "LLM Token not set. Please configure LLMFOUNDRY_TOKEN env variable."
+    if not llm_token:
+        return "LLM Token not provided. Please provide a valid LLM Foundry Token."
 
     headers = {
-        "Authorization": f"Bearer {TOKEN}",
+        "Authorization": f"Bearer {llm_token}",
         "Content-Type": "application/json"
     }
 

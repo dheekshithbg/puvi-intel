@@ -47,6 +47,7 @@ def extract(data: dict):
 @app.post("/analyze")
 def analyze(data: dict):
     text = data.get("text", "")
+    llm_token = data.get("llm_token", None)
 
     entities = extract_entities(text)
     risk = classify_risk(text)
@@ -59,7 +60,7 @@ def analyze(data: dict):
 
     clusters = cluster_points(geo_points)
     summary = city_summary(geo_points, score)
-    story = generate_story(entities, risk, geo_points, clusters, summary)
+    story = generate_story(entities, risk, geo_points, clusters, summary, llm_token=llm_token)
 
 
     response = {
