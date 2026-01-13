@@ -2,8 +2,6 @@ import os
 import requests
 from dotenv import load_dotenv
 
-LLM_URL = os.getenv("LLM_URL")
-
 PROJECT_ID = "puviintel"   
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 ENV_PATH = os.path.join(ROOT_DIR, ".env")
@@ -36,7 +34,7 @@ def call_llm(prompt: str, token: str = None):
         ],
         "temperature": 0.3
     }
-
+    LLM_URL = os.getenv("LLM_URL")
     try:
         response = requests.post(LLM_URL, headers=headers, json=payload, timeout=30)
         response.raise_for_status()
@@ -53,4 +51,5 @@ def call_llm(prompt: str, token: str = None):
     
     except Exception as e:
         return f"LLM Request Failed: {e}"
+
 
