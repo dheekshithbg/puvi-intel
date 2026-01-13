@@ -25,7 +25,7 @@ app = FastAPI(
 # Configure CORS from environment variables
 allowed_origins = os.getenv(
     "CORS_ORIGINS", 
-    "http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173"
+    "http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173,https://puviintel.vercel.app"
 ).split(",")
 
 app.add_middleware(
@@ -102,3 +102,4 @@ def visualize_map(data: dict):
     html_map = generate_map(cleaned_geo, summary, clusters)
 
     return HTMLResponse(content=html_map)
+
